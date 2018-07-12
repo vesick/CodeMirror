@@ -53,9 +53,15 @@
 <link rel="stylesheet" href="../theme/yeti.css">
 <link rel="stylesheet" href="../theme/zenburn.css">
 <script src="../lib/codemirror.js"></script>
+<script src="../mode/xml/xml.js"></script>
 <script src="../mode/javascript/javascript.js"></script>
+<script src="../mode/css/css.js"></script>
+<script src="../mode/vbscript/vbscript.js"></script>
+<script src="../mode/htmlmixed/htmlmixed.js"></script>
 <script src="../addon/selection/active-line.js"></script>
 <script src="../addon/edit/matchbrackets.js"></script>
+<script src="../addon/fold/xml-fold.js"></script>
+<script src="../addon/edit/matchtags.js"></script>
 <style type="text/css">
       .CodeMirror {border: 1px solid black; font-size:13px}
     </style>
@@ -75,18 +81,22 @@
 <article>
 <h2>Theme Demo</h2>
 <form><textarea id="code" name="code">
-function findSequence(goal) {
-  function find(start, history) {
-    if (start == goal)
-      return history;
-    else if (start > goal)
-      return null;
-    else
-      return find(start + 5, "(" + history + " + 5)") ||
-             find(start * 3, "(" + history + " * 3)");
-  }
-  return find(1, "1");
-}</textarea></form>
+<html>
+  <!-- this is a comment -->
+  <head>
+    <title>HTML Example</title>
+    <script>
+      var local = {};
+      local = safdsdfas;
+    </script>
+  </head>
+  <body>
+    The indentation tries to be <em>somewhat &quot;do what
+    I mean&quot;</em>... but might not match your style.
+  </body>
+  <sdcdsa></sdcdsa>
+</html>
+</textarea></form>
 
 <p>Select a theme: <select onchange="selectTheme()" id=select>
     <option selected>default</option>
@@ -142,8 +152,17 @@ function findSequence(goal) {
 </p>
 
 <script>
+      var mixedMode = {
+        name: "htmlmixed",
+        scriptTypes: [{matches: /\/x-handlebars-template|\/x-mustache/i,
+                       mode: null},
+                      {matches: /(text|application)\/(x-)?vb(a|script)/i,
+                       mode: "vbscript"}]
+      };
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+            mode: mixedMode,
     lineNumbers: true,
+    matchTags: {bothTags: true},
     styleActiveLine: true,
     matchBrackets: true
   });

@@ -10,37 +10,9 @@
 <script src=../mode/javascript/javascript.js></script>
 <script src=../mode/css/css.js></script>
 <script src=../mode/htmlmixed/htmlmixed.js></script>
-<style type=text/css>
-      .CodeMirror {
-        float: left;
-        width: 50%;
-        border: 1px solid black;
-      }
-      iframe {
-        width: 49%;
-        float: left;
-        height: 300px;
-        border: 1px solid black;
-        border-left: 0px;
-      }
-    </style>
-<div id=nav>
-  <a href="http://codemirror.net"><h1>CodeMirror</h1><img id=logo src="../doc/logo.png"></a>
 
-  <ul>
-    <li><a href="../index.html">Home</a>
-    <li><a href="../doc/manual.html">Manual</a>
-    <li><a href="https://github.com/codemirror/codemirror">Code</a>
-  </ul>
-  <ul>
-    <li><a class=active href="#">HTML5 preview</a>
-  </ul>
-</div>
 
-<article>
-<h2>HTML5 preview</h2>
-
-    <textarea id=code name=code>
+<textarea id=code name=code>
 <!doctype html>
 <html>
   <head>
@@ -63,7 +35,7 @@
     </script>
   </body>
 </html></textarea>
-    <iframe id=preview></iframe>
+
     <script>
       var delay;
       // Initialize CodeMirror editor with a nice html5 canvas demo.
@@ -71,17 +43,32 @@
         mode: 'text/html'
       });
       editor.on("change", function() {
-        clearTimeout(delay);
-        delay = setTimeout(updatePreview, 300);
+        console.log('111 change');
+        console.log(editor.getValue());
       });
-      
-      function updatePreview() {
-        var previewFrame = document.getElementById('preview');
-        var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
-        preview.open();
-        preview.write(editor.getValue());
-        preview.close();
-      }
-      setTimeout(updatePreview, 300);
     </script>
-  </article>
+<p>****************************</p>
+<textarea id='code2' name=code>
+<!doctype html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>HTML5 canvas demo</title>
+    <style>p {font-family: monospace;}</style>
+  </head>
+  <body>
+    <p>Canvas pane 2</p>
+  </body>
+</html></textarea>
+    <script>
+      var delay;
+      // Initialize CodeMirror editor with a nice html5 canvas demo.
+      var editor2 = CodeMirror.fromTextArea(document.getElementById('code2'), {
+        mode: 'text/html'
+      });
+      editor2.on("change", function() {
+        console.log('222 change');
+        console.log(editor2.getValue());
+      });
+
+    </script>
